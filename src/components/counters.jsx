@@ -11,6 +11,18 @@ class Counters extends Component {
     ]
    };
 
+   handleReset = () => {
+
+   }
+
+   handleIncrement = (counter) => {
+     const counters = [...this.state.counters];
+     const index = counters.indexOf(counter);
+     counters[index] = { ...counter};
+     counters[index].value++;
+     this.setState({ counters });
+   }
+
    handleDelete = (counterId) => {
     const counters = this.state.counters.filter((counter) => {
       return counter.id !== counterId
@@ -22,11 +34,15 @@ class Counters extends Component {
   render() { 
     return ( 
       <div>
+        <button 
+        onClick = {this.handleReset}
+        className="btn btn-primary btn-small m-2">Reset</button>
         {this.state.counters.map((counter) => {
           return <Counter 
           key = {counter.id} 
           onDelete = {this.handleDelete} 
-          counter = {counter} />
+          counter = {counter}
+          onIncrement = {this.handleIncrement} />
         })}
       </div>
      );
